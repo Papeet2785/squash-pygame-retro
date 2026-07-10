@@ -4,22 +4,22 @@ screen = pygame.display.set_mode((600, 600))
 
 #Sprites
 #floor
-floor = pygame.image.load('Python/squash/floor.png')
+floor = pygame.image.load('floor.png')
 floor = pygame.transform.scale(floor, (600, 600))
 
 #ball
-ball = pygame.image.load('Python/squash/ball.png').convert_alpha()
+ball = pygame.image.load('ball.png').convert_alpha()
 ball = pygame.transform.scale(ball, (25,25))
 x_ball = 300
 y_ball =300
 
 #human paddle
-paddle1 = pygame.image.load('Python/squash/paddle.png').convert_alpha()
+paddle1 = pygame.image.load('paddle.png').convert_alpha()
 x_paddle1 = 5
 y_paddle1 = 280
 
 #game over
-game_over = pygame.image.load('Python/squash/gameover.png').convert_alpha()
+game_over = pygame.image.load('gameover.png').convert_alpha()
 game_over = pygame.transform.scale(game_over, (600, 600))
 
 #initializing velocity
