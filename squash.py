@@ -1,26 +1,46 @@
+import os
+import sys
 import pygame
+#script I cp pasted from gpt for better path thingy idk bruh
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except AttributeError:
+        base_path = os.path.dirname(os.path.abspath(__file__))
+
+    return os.path.join(base_path, relative_path)
+
+#window init + decorations
 pygame.init()
 screen = pygame.display.set_mode((600, 600))
+pygame.display.set_caption("Squash")
+icon = pygame.image.load(resource_path('Assets/icon.ico'))
+pygame.display.set_icon(icon)
 
 #Sprites
 #floor
-floor = pygame.image.load('Assets/floor.png')
+floor = pygame.image.load(resource_path('Assets/floor.png'))
 floor = pygame.transform.scale(floor, (600, 600))
 
 #ball
-ball = pygame.image.load('Assets/ball.png').convert_alpha()
+ball = pygame.image.load(resource_path(('Assets/ball.png'))).convert_alpha()
 ball = pygame.transform.scale(ball, (25,25))
 x_ball = 300
 y_ball =300
 
 #human paddle
-paddle1 = pygame.image.load('Assets/paddle.png').convert_alpha()
+paddle1 = pygame.image.load(resource_path(('Assets/paddle.png'))).convert_alpha()
 x_paddle1 = 5
 y_paddle1 = 280
 
 #game over
-game_over = pygame.image.load('Assets/gameover.png').convert_alpha()
+game_over = pygame.image.load(resource_path(('Assets/gameover.png'))).convert_alpha()
 game_over = pygame.transform.scale(game_over, (600, 600))
+
+#restart message, cp pasted gemini
+font = pygame.font.Font(None, 48)
+res_surface = font.render("Press r to restart!", True, 'black')
+res_rect = res_surface.get_rect(center=(600 // 2, 600 // 4))
 
 #initializing velocity
 x_ball_vel = -1000
@@ -36,15 +56,16 @@ while running:
     screen.blit(ball, (x_ball,y_ball))
     if x_ball < 0:
         screen.blit(game_over, (0,0))
+        screen.blit(res_surface, res_rect)
     else:
         screen.blit(paddle1, (x_paddle1,y_paddle1))
         
     #hitboxes
     b_hbox = pygame.Rect(x_ball, y_ball, ball.get_width(), ball.get_height())
-    #elite paddle hitboxes
-    p1_hbox_top = pygame.Rect(x_paddle1, y_paddle1, paddle1.get_width(), 20)
-    p1_hbox_mid = pygame.Rect(x_paddle1, y_paddle1+20, paddle1.get_width(), paddle1.get_height()-20)
-    p1_hbox_bot = pygame.Rect(x_paddle1, y_paddle1 + paddle1.get_height() -20, paddle1.get_width(), 20)
+    #elite paddle
+    p1_hbox_top = pygame.Rect(x_paddle1, y_paddle1, paddle1.get_width(), 15)
+    p1_hbox_mid = pygame.Rect(x_paddle1, y_paddle1+15, paddle1.get_width(), paddle1.get_height()-30)
+    p1_hbox_bot = pygame.Rect(x_paddle1, y_paddle1 + paddle1.get_height() -15, paddle1.get_width(), 15)
     #screen edge hitboxes
     wall_top = pygame.Rect(0, -20, 600, 20)
     wall_bot = pygame.Rect(0, 600, 600, 20)
@@ -72,8 +93,15 @@ while running:
     #down
     if (keys[pygame.K_s] or keys[pygame.K_DOWN]) and y_paddle1<520:
         y_paddle1 += 800*delta_time
-    
-    #display stuff I copy/pasted
+    #restart
+    if (keys[pygame.K_r]):
+        y_paddle1 = 280
+        x_ball_vel = -1000
+        y_ball_vel = 0
+        x_ball = 300
+        y_ball =300
+
+    #stuff I cp pasted from youtube for better window/fps stuff
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
