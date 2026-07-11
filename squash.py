@@ -66,23 +66,30 @@ while running:
     p1_hbox_top = pygame.Rect(x_paddle1, y_paddle1, paddle1.get_width(), 15)
     p1_hbox_mid = pygame.Rect(x_paddle1, y_paddle1+15, paddle1.get_width(), paddle1.get_height()-30)
     p1_hbox_bot = pygame.Rect(x_paddle1, y_paddle1 + paddle1.get_height() -15, paddle1.get_width(), 15)
-    #screen edge hitboxes
-    wall_top = pygame.Rect(0, -20, 600, 20)
-    wall_bot = pygame.Rect(0, 600, 600, 20)
-    wall_right = pygame.Rect(600, 0, 20, 600)
 
     #ball vx
-    if b_hbox.colliderect(p1_hbox_mid) or b_hbox.colliderect(p1_hbox_top) or b_hbox.colliderect(p1_hbox_bot) or b_hbox.colliderect(wall_right):
+    #paddle collisions
+    if b_hbox.colliderect(p1_hbox_mid) or b_hbox.colliderect(p1_hbox_top) or b_hbox.colliderect(p1_hbox_bot):
+        x_ball_vel *= -1
+    #wall collisions
+    if x_ball > 600 - ball.get_width():
+        x_ball = 600 - ball.get_width()
         x_ball_vel *= -1
     x_ball += x_ball_vel * delta_time
 
     #ball vy
-    if b_hbox.colliderect(wall_top) or b_hbox.colliderect(wall_bot):
-        y_ball_vel *= -1
+    #paddle collisions
     if b_hbox.colliderect(p1_hbox_top):
-        y_ball_vel -= 300
+        y_ball_vel -= 200
     if b_hbox.colliderect(p1_hbox_bot):
-        y_ball_vel += 300    
+        y_ball_vel += 200 
+    #wall collisions
+    if y_ball < 0:
+        y_ball = 0
+        y_ball_vel *= -1
+    if x_ball > 600 - ball.get_height():
+        y_ball = 600 - ball.get_height()
+        y_ball_vel *= -1  
     y_ball += y_ball_vel * delta_time
 
     #keys
