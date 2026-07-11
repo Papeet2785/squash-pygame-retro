@@ -87,7 +87,7 @@ while running:
     if y_ball < 0:
         y_ball = 0
         y_ball_vel *= -1
-    if x_ball > 600 - ball.get_height():
+    if y_ball > 600 - ball.get_height():
         y_ball = 600 - ball.get_height()
         y_ball_vel *= -1  
     y_ball += y_ball_vel * delta_time
