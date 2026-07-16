@@ -1,4 +1,4 @@
-('C:\\Users\\carme\\OneDrive\\Desktop\\Code\\Python\\Squash\\build\\squash\\PYZ-00.pyz',
+('C:\\Users\\carme\\OneDrive\\Desktop\\code\\Python\\squash\\build\\squash\\PYZ-00.pyz',
  [('_compat_pickle',
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\\Lib\\_compat_pickle.py',

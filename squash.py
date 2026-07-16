@@ -1,5 +1,6 @@
 import os
 import sys
+import random
 import pygame
 #script I cp pasted from gpt for better path thingy idk bruh
 def resource_path(relative_path):
@@ -94,9 +95,9 @@ while running:
     #ball vy
     #paddle collisions
     if b_hbox.colliderect(p1_hbox_top):
-        ball_y_vel -= paddle_bounce
+        ball_y_vel -= random.randint(0,paddle_bounce)
     if b_hbox.colliderect(p1_hbox_bot):
-        ball_y_vel += paddle_bounce
+        ball_y_vel += random.randint(0,paddle_bounce)
     #wall collisions
     if ball_y < 0:
         ball_y = 0
