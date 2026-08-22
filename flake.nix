@@ -1,10 +1,8 @@
 {
   description = "Python + Pygame development environment";
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
   };
-
   outputs = { self, nixpkgs }:
     let
       system = "x86_64-linux";
@@ -39,7 +37,6 @@
           libGL
           libglvnd
         ];
-
         env = {
           SDL_VIDEODRIVER = "wayland,x11";
           SDL_AUDIODRIVER = "pipewire,pulse,alsa";
